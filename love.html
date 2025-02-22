@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-rows: 200px;
+        }
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .container {
+            position: relative;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            z-index: 1;
+        }
+        .photo {
+            width: 90%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+            cursor: pointer;
+        }
+        .gift-box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        .gift-box::before,
+        .gift-box::after {
+            content: "";
+            position: absolute;
+            background: white;
+        }
+        .gift-box::before {
+            width: 20px;
+            height: 100%;
+            left: 40px;
+            top: 0;
+        }
+        .gift-box::after {
+            width: 100%;
+            height: 20px;
+            top: 40px;
+            left: 0;
+        }
+        .lid {
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            background: red;
+            top: -20px;
+            transition: all 0.5s;
+        }
+        .lid::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            background: white;
+            left: 30px;
+            top: 0;
+        }
+        .box {
+            position: absolute;
+            width: 100px;
+            height: 80px;
+            background: red;
+            bottom: 0;
+            transition: all 0.5s;
+        }
+        .message {
+            font-size: 36px;
+            color: pink;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.5s;
+            opacity: 0;
+            position: relative;
+            top: 20px;
+        }
+        .message::after {
+            content: " ❤️❤️❤️";
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="background"></div>
+    <div class="container">
+        <h1>Para la persona más especial ❤️</h1>
+        <p>Eres la luz de mis días, mi inspiración y mi felicidad. Te amo con todo mi corazón.</p>
+        <img src="IMG_20250219_113931_646.jpg" alt="Tu foto" class="photo" onclick="playSong()">
+        <div class="gift-box" id="giftBox" onclick="openGift()">
+            <div class="lid" id="lid"></div>
+            <div class="box" id="box"></div>
+        </div>
+        <div class="message" id="message">TE AMO</div>
+        <audio id="song" src="tu_cancion.mp3"></audio>
+    </div>
+    <script>
+        function openGift() {
+            document.getElementById("lid").style.top = "-100px";
+            document.getElementById("lid").style.opacity = "0";
+            document.getElementById("box").style.bottom = "-100px";
+            document.getElementById("box").style.opacity = "0";
+            document.getElementById("message").style.opacity = "1";
+            document.getElementById("message").style.transform = "translateY(-10px)";
+            
+            let song = document.getElementById("song");
+            song.currentTime = 0;
+            song.play().catch(error => console.log("Error al reproducir la canción", error));
+            
+            setTimeout(() => {
+                document.getElementById("giftBox").style.display = "none";
+            }, 500);
+        }
+        function playSong() {
+            let song = document.getElementById("song");
+            song.currentTime = 0;
+            song.play().catch(error => console.log("Error al reproducir la canción", error));
+        }
+        
+        // Generar imágenes en patrón repetitivo aleatorio
+        const background = document.getElementById("background");
+        const images = ["foto1.jpg", "foto2.jpg", "foto3.jpg", "foto9.png", "foto5.jpg", "foto10.png", "foto7.jpg", "foto8.jpg"];
+        const totalCells = 30;
+
+        for (let i = 0; i < totalCells; i++) {
+            const img = document.createElement("img");
+            img.src = images[Math.floor(Math.random() * images.length)];
+            background.appendChild(img);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
